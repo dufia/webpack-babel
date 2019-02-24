@@ -1,24 +1,38 @@
-import _ from 'lodash';
-import css from './styles.css';
-import imagePng from './image.png';
+import './styles.css';
+import './styles.scss';
+import imagePng from './assets/image.png';
 import printMe from './print.js';
+import { cube } from './math.js';
+import constant from './typescript/index.ts';
 
+function getComponent() {
+  return import('lodash').then(({ default: _ }) => {
+    var element = document.createElement('p');
+    element.innerHTML = _.join(['chunk', 'webpack'], ' ');
+    return element;
+ }).catch(() => 'An error occurred while loading the component');
+}
+
+setTimeout(() => {
+  getComponent().then(component => {
+    document.body.appendChild(component);
+  })
+}, 3000);
 
 function component() {
-  let element = document.createElement('div');
+  var element = document.createElement('pre');
   var btn = document.createElement('button');
 
   btn.innerHTML = 'Click me and check the console!';
   btn.onclick = printMe;
 
-
-
-
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  element.innerHTML = [
+    'Hello webpack!',
+    `This "${constant}" is from a .ts file`,
+    '5 cubed is equal to ' + cube(5)
+  ].join('\n\n');
 
   element.appendChild(btn);
-
   return element;
 }
 
@@ -28,8 +42,14 @@ function image() {
   return image;
 }
 
-
-
-
-document.body.appendChild(component());
+let element = component();
+document.body.appendChild(element);
 document.body.appendChild(image());
+
+if (module.hot) {
+  module.hot.accept('./print.js', function() {
+    document.body.removeChild(element);
+    element = component(); // Re-render the "component" to update the click handler
+    document.body.appendChild(element);
+  })
+}

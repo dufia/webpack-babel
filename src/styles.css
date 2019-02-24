@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'ZCOOL';
+  src: url('./assets/ZCOOLKuaiLe-Regular.ttf');
+  font-weight: normal;
+  font-size: normal;
+}
+
 body {
-	background: whitesmoke;
+	background: url('./assets/E3aV5k6.jpg');
+  font-family: 'ZCOOL';
+  font-size: 22px;
+  color: white;
 }

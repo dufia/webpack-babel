@@ -3,35 +3,30 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const webpack = require('webpack');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const smp = new SpeedMeasurePlugin();
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = smp.wrap({
-  mode: "production",
-  optimization: {
-      minimize: false,
-      usedExports: true,
-      sideEffects: false
-  },
+module.exports = {
   entry: {
     'app': './src/index.js',
+    'app-react': './src/index-react.js',
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].bundle.js",
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    hot: true,
+    filename: "[name].[hash].bundle.js",
+    chunkFilename: '[name].[hash].bundle.js',
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Output Management',
-      excludeChunks: [ 'print' ],
+      template: "./src/index.html",
+      filename: "./index.html",
+      title: 'Practicing webpack',
+      chunks: [ 'app' ],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: "./react.html",
+      title: 'React',
+      chunks: [ 'app-react' ],
     }),
     new CopyWebpackPlugin([{
       from: 'src/static/*.png',
@@ -44,16 +39,25 @@ module.exports = smp.wrap({
         optimizationLevel: 9
       }
     }),
-    new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        enforce: "pre",
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader"
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+        }
+      },
+      { 
+        test: /\.tsx?$/,
+        loader: "ts-loader"
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
@@ -93,4 +97,4 @@ module.exports = smp.wrap({
       }
     ]
   }
-})
+}

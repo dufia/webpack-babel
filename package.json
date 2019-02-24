@@ -1,25 +1,59 @@
 {
   "name": "learning-webpack-babel",
+  "sideEffects": false,
   "version": "0.0.1",
   "description": "I wanted to obtain in-depth webpack and babel knowledge, so I am building this.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --ext .js,.jsx,.ts src",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js",
-    "start": "webpack-dev-server --open"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --config webpack.dev.js"
   },
   "author": "Konrad Moskal",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "@loadable/component": "^5.6.0",
+    "autoprefixer": "^9.4.7",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.6.0",
+    "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
+    "eslint": "^5.14.1",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-react": "^7.12.4",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.6.0",
+    "imagemin-webpack-plugin": "^2.4.1",
     "lodash": "^4.17.11",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "sass-loader": "^7.1.0",
+    "speed-measure-webpack-plugin": "^1.3.0",
     "style-loader": "^0.23.0",
+    "styled-components": "^4.1.3",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "react-hot-loader": "^4.7.0"
   }
 }
