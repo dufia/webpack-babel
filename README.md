@@ -30,3 +30,6 @@ Bullet points I wanted to tick:
     * webpack-dev-server
     * browserlist
     * linting
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
