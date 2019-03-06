@@ -14,6 +14,9 @@ module.exports = {
     filename: "[name].[hash].bundle.js",
     chunkFilename: '[name].[hash].bundle.js',
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"],
+  },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({

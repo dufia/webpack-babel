@@ -1,3 +1,6 @@
+import f from './functions';
+console.log(f('ok'));
+
 const constant: string = 'string';
 
 interface ClockInterface {
@@ -50,7 +53,10 @@ function createClock (clock: ClockContructor, hh: number, ss: number): ClockInte
 let digitalClock = createClock(DigitalClock, 22, 54);
 let analogClock = createClock(AnalogClock, 10, 10);
 
-digitalClock.run();
-analogClock.run();
+/*digitalClock.run();
+analogClock.run();*/
+
+
+
 
 export default constant;
